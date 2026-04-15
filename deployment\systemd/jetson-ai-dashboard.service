@@ -1,0 +1,16 @@
+[Unit]
+Description=Jetson AI IoT Streamlit Dashboard
+After=network-online.target jetson-ai-backend.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__JETSON_USER__
+WorkingDirectory=__PROJECT_DIR__
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/streamlit run __PROJECT_DIR__/dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
